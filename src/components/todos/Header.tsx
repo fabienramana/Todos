@@ -1,4 +1,3 @@
-import TodoInputCreator from "./TodoInputCreator"
 
 export default function Header(): JSX.Element{
     return(

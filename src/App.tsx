@@ -1,8 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
 import './styles/App.css';
-import Header from './components/todos/Header'
-import TodoList from './components/todos/TodoList';
 import TodoViewer from './components/todos/TodoViewer';
 
 function App() {
@@ -20,11 +17,11 @@ function App() {
 				<ul className="todo-list">
 					<li className="completed">
 						<div className="view">
-							<input className="toggle" type="checkbox" checked/>
+							<input className="toggle" type="checkbox" />
 							<label>Taste JavaScript</label>
 							<button className="destroy"></button>
 						</div>
-						<input className="edit" value="Create a TodoMVC template"/>
+						<input className="edit" defaultValue=""/>
 					</li>
 					<li>
 						<div className="view">
@@ -32,7 +29,7 @@ function App() {
 							<label>Buy a unicorn</label>
 							<button className="destroy"></button>
 						</div>
-						<input className="edit" value="Rule the web"/>
+						<input className="edit" defaultValue=""/>
 					</li>
 				</ul>
 			</section>
