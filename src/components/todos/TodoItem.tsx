@@ -7,19 +7,14 @@ type TodoItemProps = {
 
 export default function TodoItem({ todo }: TodoItemProps): JSX.Element{
 
-    const [isCompleted, setIsCompleted] = useState(todo.completed);
+    const [isCompleted, setIsCompleted] = useState<boolean>(todo.completed);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIsCompleted(event.target.checked);
-        // 👇️ this is the checkbox itself
-        console.log(event.target);
-    
-        // 👇️ this is the checked value of the field
-        console.log(event.target.checked);
       };
 
       const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value);
+        
       };
 
     return(

@@ -4,6 +4,8 @@ import TodoInputCreator from "./TodoInputCreator";
 import TodoList from "./TodoList";
 import Todo from "../../models/Todo";
 
+import {useState} from 'react'
+
 export default function TodoViewer(): JSX.Element{
 
     const listOfTodos: Array<Todo> = [
@@ -21,13 +23,23 @@ export default function TodoViewer(): JSX.Element{
         } 
 
     ]
+
+    const [todos, setTodos] = useState<Todo[]>(listOfTodos)
+
+    function addTodo(content: string): void{
+        const todo: Todo = {
+            content,
+            completed: false
+        }
+        setTodos([...todos, todo]);
+    }
     
     return (
         <div>
             <section className="todoapp">
                 <Header/>
-                <TodoInputCreator/>
-                <TodoList todoArray={listOfTodos}/>
+                <TodoInputCreator addTodo={addTodo}/>
+                <TodoList todoArray={todos}/>
                 <Footer/>
             </section>
             <footer className="info">

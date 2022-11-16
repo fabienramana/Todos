@@ -1,12 +1,12 @@
 import React from 'react';
 import './styles/App.css';
-import TodoViewer from './components/todos/TodoViewer';
+import Page from './components/todos/Page';
 
 function App() {
   return (
     <div>
-      <TodoViewer/>
-		<section className="todoapp">
+      <Page/>
+		{/*<section className="todoapp">
 			<header className="header">
 				<h1>todos</h1>
 				<input className="new-todo" placeholder="What needs to be done?" />
@@ -56,8 +56,8 @@ function App() {
 		</footer>
 
 		<script src="node_modules/todomvc-common/base.js"></script>
-		<script src="js/app.js"></script>
-    </div>
+		<script src="js/app.js"></script>*/}
+  </div> 
   );
 }
 

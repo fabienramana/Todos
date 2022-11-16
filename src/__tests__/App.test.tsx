@@ -1,9 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from '../App';
 import TodoList from '../components/todos/TodoList';
 import TodoItem from '../components/todos/TodoItem';
 import Todo from '../models/Todo';
+import TodoInputCreator from '../components/todos/TodoInputCreator';
+import addTodo from '../components/todos/Page'
+import todos from '../components/todos/Page'
 
 
 describe('TodoItem component', () => {
@@ -44,3 +46,10 @@ describe('TodoList component', () => {
     })
   })
 })
+/*
+describe('TodoInputCreator component', () => {
+  test('should create a new todo and add to the state list', () => {
+
+    render(<TodoInputCreator addTodo={addTodo}/>)
+  })
+}) */
