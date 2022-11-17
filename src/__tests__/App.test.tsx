@@ -4,6 +4,7 @@ import TodoList from '../components/todos/TodoList';
 import TodoItem from '../components/todos/TodoItem';
 import Todo from '../models/Todo';
 import TodoInputCreator from '../components/todos/TodoInputCreator';
+import Footer from '../components/todos/Footer';
 
 
 describe('TodoItem component', () => {
@@ -70,3 +71,34 @@ describe('TodoInputCreator component', () => {
     
   })
 }) 
+
+
+describe('Footer component', ()=>{
+
+  /****************** Comment faire pour matcher le texte quand split en plusieurs balises ? EX : <p><strong>0</strong> item left</p> ****************/   
+  test('should render number of todos left', ()=>{
+
+    const listOfTodos: Array<Todo> = [
+        {
+            content:"Wake up early",
+            completed: false
+        },
+        {
+            content:"Sleep early",
+            completed: false
+        },
+        {
+            content:"Do the chores",
+            completed: true
+        } 
+
+    ]
+
+    render(<Footer todoArray={listOfTodos} />)
+
+    const nbrTodosLeft = listOfTodos.filter((todo)=> todo.completed === false).length
+
+    expect(screen.getByText(`${nbrTodosLeft} item left`)).toBeInTheDocument();
+
+  })
+})

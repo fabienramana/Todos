@@ -44,7 +44,7 @@ export default function TodoViewer(): JSX.Element{
                 <Header/>
                 <TodoInputCreator addTodo={addTodo}/>
                 <TodoList todoArray={todos} removeTodo={removeTodo}/>
-                <Footer/>
+                <Footer todoArray={todos}/>
             </section>
             <footer className="info">
                 <p>Double-click to edit a todo</p>
