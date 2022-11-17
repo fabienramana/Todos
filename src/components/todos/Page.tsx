@@ -33,13 +33,17 @@ export default function TodoViewer(): JSX.Element{
         }
         setTodos([...todos, todo]);
     }
+
+    function removeTodo(index: number): void{
+        setTodos(todos.filter((todo,i) => i!== index))
+    }
     
     return (
         <div>
             <section className="todoapp">
                 <Header/>
                 <TodoInputCreator addTodo={addTodo}/>
-                <TodoList todoArray={todos}/>
+                <TodoList todoArray={todos} removeTodo={removeTodo}/>
                 <Footer/>
             </section>
             <footer className="info">

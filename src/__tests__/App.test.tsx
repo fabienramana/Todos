@@ -1,11 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import TodoList from '../components/todos/TodoList';
 import TodoItem from '../components/todos/TodoItem';
 import Todo from '../models/Todo';
 import TodoInputCreator from '../components/todos/TodoInputCreator';
-import addTodo from '../components/todos/Page'
-import todos from '../components/todos/Page'
 
 
 describe('TodoItem component', () => {
@@ -14,7 +12,11 @@ describe('TodoItem component', () => {
       content: "Soccer match at 3 pm",
       completed: false
     }
-    render(<TodoItem todo={todo}/>)
+
+    const index= 0;
+    const removeTodo = jest.fn()
+
+    render(<TodoItem todo={todo} removeTodo={removeTodo} value={index}/>)
 
     expect(screen.getByText(todo.content)).toBeInTheDocument();
   })
@@ -39,17 +41,32 @@ describe('TodoList component', () => {
 
   ]
 
-    render(<TodoList todoArray={listOfTodos}/>)
+    const removeTodo = jest.fn()
+
+    render(<TodoList todoArray={listOfTodos} removeTodo={removeTodo}/>)
 
     listOfTodos.forEach(todo => {
       expect(screen.getByText(todo.content)).toBeInTheDocument();
     })
   })
 })
-/*
+
 describe('TodoInputCreator component', () => {
   test('should create a new todo and add to the state list', () => {
 
+    const addTodo = jest.fn();
+    const title = "Coucou"
+
     render(<TodoInputCreator addTodo={addTodo}/>)
+
+    const input = screen.getByPlaceholderText("What needs to be done?")
+    
+    
+    fireEvent.change(input, { target: {value: `${title}`} });
+    input.focus();
+    fireEvent.keyPress(input, { key: "Enter", code: 13 });
+    expect(addTodo).toHaveBeenCalledTimes(1);
+    expect(addTodo).toHaveBeenCalledWith(title);
+    
   })
-}) */
+}) 
