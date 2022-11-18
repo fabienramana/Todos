@@ -25,6 +25,7 @@ export default function TodoViewer(): JSX.Element{
     ]
 
     const [todos, setTodos] = useState<Todo[]>(listOfTodos)
+    const [filter, setFilter] = useState<string>("all");
 
     function addTodo(content: string): void{
         const todo: Todo = {
@@ -63,12 +64,17 @@ export default function TodoViewer(): JSX.Element{
             <section className="todoapp">
                 <Header/>
                 <TodoInputCreator addTodo={addTodo}/>
-                <TodoList todoArray={todos}
-                          removeTodo={removeTodo}
-                          changeStatusOfTodo={changeStatusOfTodo}
-                          changeStatusOfAllTodos={changeStatusOfAllTodos}/>
-                <Footer todoArray={todos}
-                        removeCompletedTodos={removeCompletedTodos}/>
+                <div style={ todos.length>0 ? {display: ""} : {display: "none"}}>
+                    <TodoList todoArray={todos}
+                            removeTodo={removeTodo}
+                            changeStatusOfTodo={changeStatusOfTodo}
+                            changeStatusOfAllTodos={changeStatusOfAllTodos}
+                            filter={filter}/>
+                    <Footer todoArray={todos}
+                            removeCompletedTodos={removeCompletedTodos}
+                            filter={filter}
+                            setFilter={setFilter}/>
+                </div>
             </section>
             <footer className="info">
                 <p>Double-click to edit a todo</p>

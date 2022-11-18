@@ -1,3 +1,4 @@
+import React from "react";
 import Todo from "../../models/Todo"
 
 type TodoItemProps = {
@@ -17,14 +18,17 @@ export default function TodoItem({ todo, removeTodo, value, changeStatusOfTodo }
     
     };
     
-    
+    const handleClick = (event: React.MouseEvent<HTMLLabelElement>) => {
+        
+    }
+
 
     return(
         
         <li className={todo.completed ? "completed" : ""}>
             <div className="view">
                 <input className="toggle" type="checkbox" onChange={handleCheckboxChange} checked={todo.completed}/>
-                <label>{todo.content}</label>
+                <label onClick={handleClick}>{todo.content}</label>
                 <button className="destroy" onClick={() => removeTodo(value)}></button>
             </div>
             <input className="edit" onChange={handleChangeValue} value="create MVC project"/> 

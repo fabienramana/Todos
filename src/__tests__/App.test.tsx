@@ -46,10 +46,12 @@ describe('TodoList component', () => {
     const removeTodo = jest.fn()
     const changeStatusOfTodo = jest.fn()
     const changeStatusOfAllTodos = jest.fn()
+    const filter= "all"
 
     render(<TodoList todoArray={listOfTodos} 
             removeTodo={removeTodo}
             changeStatusOfTodo={changeStatusOfTodo}
+            filter={filter}
             changeStatusOfAllTodos={changeStatusOfAllTodos}/>)
 
     listOfTodos.forEach(todo => {
@@ -101,8 +103,13 @@ describe('Footer component', ()=>{
     ]
 
     const removeCompletedTodos = jest.fn();
+    const setFilter = jest.fn();
+    const filter = "all"
 
-    render(<Footer todoArray={listOfTodos} removeCompletedTodos={removeCompletedTodos}/>)
+    render(<Footer todoArray={listOfTodos} 
+            removeCompletedTodos={removeCompletedTodos}
+            setFilter={setFilter}
+            filter={filter}/>)
 
     const nbrTodosLeft = listOfTodos.filter((todo)=> todo.completed === false).length
 

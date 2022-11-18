@@ -6,10 +6,11 @@ type AppProps = {
     todoArray: Todo[],
     removeTodo: (index:number) => void,
     changeStatusOfTodo: (todoStatus: boolean, index: number) => void,
-    changeStatusOfAllTodos: (status: boolean) => void
+    changeStatusOfAllTodos: (status: boolean) => void, 
+    filter: string
 }
 
-export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, changeStatusOfAllTodos }: AppProps): JSX.Element{
+export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, changeStatusOfAllTodos, filter }: AppProps): JSX.Element{
 
     const inputRef = useRef(document.createElement("input"));
 
@@ -23,7 +24,18 @@ export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, ch
 				<input id="toggle-all" className="toggle-all" type="checkbox" onClick={(e) => changeStatusOfAllTodos(e.currentTarget.checked)}/>
 				<label onClick={() => updateInputValue()}>Mark all as complete</label>
 				<ul className="todo-list">
-					{todoArray.map((todo, index) => <TodoItem key={index}
+					{todoArray.filter((todo)=>{
+                        if(filter === "active" && todo.completed === false){
+                            return true;
+                        }
+                        else if(filter === "completed" && todo.completed === true){
+                            return true;
+                        }
+                        else if(filter === "all"){
+                            return true;
+                        }
+                        return false;
+                    }).map((todo, index) => <TodoItem key={index}
                                                      value={index}
                                                      todo={todo}
                                                      removeTodo={removeTodo}
