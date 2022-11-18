@@ -16,8 +16,9 @@ describe('TodoItem component', () => {
 
     const index= 0;
     const removeTodo = jest.fn()
+    const changeStatusOfTodo = jest.fn()
 
-    render(<TodoItem todo={todo} removeTodo={removeTodo} value={index}/>)
+    render(<TodoItem todo={todo} removeTodo={removeTodo} value={index} changeStatusOfTodo={changeStatusOfTodo}/>)
 
     expect(screen.getByText(todo.content)).toBeInTheDocument();
   })
@@ -43,8 +44,9 @@ describe('TodoList component', () => {
   ]
 
     const removeTodo = jest.fn()
+    const changeStatusOfTodo = jest.fn()
 
-    render(<TodoList todoArray={listOfTodos} removeTodo={removeTodo}/>)
+    render(<TodoList todoArray={listOfTodos} removeTodo={removeTodo}changeStatusOfTodo={changeStatusOfTodo}/>)
 
     listOfTodos.forEach(todo => {
       expect(screen.getByText(todo.content)).toBeInTheDocument();
@@ -94,7 +96,9 @@ describe('Footer component', ()=>{
 
     ]
 
-    render(<Footer todoArray={listOfTodos} />)
+    const removeCompletedTodos = jest.fn();
+
+    render(<Footer todoArray={listOfTodos} removeCompletedTodos={removeCompletedTodos}/>)
 
     const nbrTodosLeft = listOfTodos.filter((todo)=> todo.completed === false).length
 

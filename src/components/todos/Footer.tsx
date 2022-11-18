@@ -1,12 +1,15 @@
 import Todo from "../../models/Todo"
 
 type AppProps = {
-    todoArray: Todo[]
+    todoArray: Todo[],
+    removeCompletedTodos: ()=> void
 }
 
-export default function Footer({todoArray}: AppProps): JSX.Element {
+export default function Footer({todoArray, removeCompletedTodos}: AppProps): JSX.Element {
 
     const nbrTodosLeft = todoArray.filter((todo) => todo.completed === false).length
+
+
 
     return(
         <footer className="footer">
@@ -22,7 +25,7 @@ export default function Footer({todoArray}: AppProps): JSX.Element {
                     <a href="#/completed">Completed</a>
                 </li>
             </ul>
-            <button className="clear-completed">Clear completed</button>
+            <button className="clear-completed" onClick={() => removeCompletedTodos()}>Clear completed</button>
         </footer>
     )
 }
