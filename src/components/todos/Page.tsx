@@ -50,14 +50,25 @@ export default function TodoViewer(): JSX.Element{
     function removeCompletedTodos(): void{
         setTodos(todos.filter((todo) => todo.completed === false))
     }
+
+    function changeStatusOfAllTodos(status: boolean): void{
+        setTodos(todos.map((todo)=> {
+            todo.completed = status
+            return todo;
+        }))
+    }
     
     return (
         <div>
             <section className="todoapp">
                 <Header/>
                 <TodoInputCreator addTodo={addTodo}/>
-                <TodoList todoArray={todos} removeTodo={removeTodo} changeStatusOfTodo={changeStatusOfTodo}/>
-                <Footer todoArray={todos} removeCompletedTodos={removeCompletedTodos}/>
+                <TodoList todoArray={todos}
+                          removeTodo={removeTodo}
+                          changeStatusOfTodo={changeStatusOfTodo}
+                          changeStatusOfAllTodos={changeStatusOfAllTodos}/>
+                <Footer todoArray={todos}
+                        removeCompletedTodos={removeCompletedTodos}/>
             </section>
             <footer className="info">
                 <p>Double-click to edit a todo</p>

@@ -45,8 +45,12 @@ describe('TodoList component', () => {
 
     const removeTodo = jest.fn()
     const changeStatusOfTodo = jest.fn()
+    const changeStatusOfAllTodos = jest.fn()
 
-    render(<TodoList todoArray={listOfTodos} removeTodo={removeTodo}changeStatusOfTodo={changeStatusOfTodo}/>)
+    render(<TodoList todoArray={listOfTodos} 
+            removeTodo={removeTodo}
+            changeStatusOfTodo={changeStatusOfTodo}
+            changeStatusOfAllTodos={changeStatusOfAllTodos}/>)
 
     listOfTodos.forEach(todo => {
       expect(screen.getByText(todo.content)).toBeInTheDocument();
