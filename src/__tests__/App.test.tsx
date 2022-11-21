@@ -10,15 +10,19 @@ import Footer from '../components/todos/Footer';
 describe('TodoItem component', () => {
   test('should display todo content', () => {
     const todo: Todo ={
+      id:1,
       content: "Soccer match at 3 pm",
       completed: false
     }
 
-    const index= 0;
     const removeTodo = jest.fn()
     const changeStatusOfTodo = jest.fn()
+    const changeContentOfTodo = jest.fn()
 
-    render(<TodoItem todo={todo} removeTodo={removeTodo} value={index} changeStatusOfTodo={changeStatusOfTodo}/>)
+    render(<TodoItem todo={todo}
+            removeTodo={removeTodo}
+            changeStatusOfTodo={changeStatusOfTodo}
+            changeContentOfTodo={changeContentOfTodo}/>)
 
     expect(screen.getByText(todo.content)).toBeInTheDocument();
   })
@@ -29,14 +33,17 @@ describe('TodoList component', () => {
   test('should display all todos content', () => {
     const listOfTodos: Array<Todo> = [
       {
+          id:1,
           content:"Wake up early",
           completed: false
       },
       {
+          id:2,
           content:"Sleep early",
           completed: false
       },
       {
+          id:3,
           content:"Do the chores",
           completed: true
       } 
@@ -46,13 +53,15 @@ describe('TodoList component', () => {
     const removeTodo = jest.fn()
     const changeStatusOfTodo = jest.fn()
     const changeStatusOfAllTodos = jest.fn()
+    const changeContentOfTodo = jest.fn()
     const filter= "all"
 
     render(<TodoList todoArray={listOfTodos} 
             removeTodo={removeTodo}
             changeStatusOfTodo={changeStatusOfTodo}
             filter={filter}
-            changeStatusOfAllTodos={changeStatusOfAllTodos}/>)
+            changeStatusOfAllTodos={changeStatusOfAllTodos}
+            changeContentOfTodo={changeContentOfTodo}/>)
 
     listOfTodos.forEach(todo => {
       expect(screen.getByText(todo.content)).toBeInTheDocument();
@@ -87,20 +96,23 @@ describe('Footer component', ()=>{
   test('should render number of todos left', ()=>{
 
     const listOfTodos: Array<Todo> = [
-        {
-            content:"Wake up early",
-            completed: false
-        },
-        {
-            content:"Sleep early",
-            completed: false
-        },
-        {
-            content:"Do the chores",
-            completed: true
-        } 
+      {
+          id:1,
+          content:"Wake up early",
+          completed: false
+      },
+      {
+          id:2,
+          content:"Sleep early",
+          completed: false
+      },
+      {
+          id:3,
+          content:"Do the chores",
+          completed: true
+      } 
 
-    ]
+  ]
 
     const removeCompletedTodos = jest.fn();
     const setFilter = jest.fn();

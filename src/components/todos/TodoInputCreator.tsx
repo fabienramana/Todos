@@ -7,7 +7,7 @@ type PropsParam = {
 export default function TodoInputCreator({addTodo}: PropsParam): JSX.Element{
     const [todoContent, setTodoContent] = useState<string>('');
     
-    const inputRef = useRef(document.createElement("input"));
+    const inputRef = useRef<HTMLInputElement>(null);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
         setTodoContent(e.target.value)
@@ -16,7 +16,9 @@ export default function TodoInputCreator({addTodo}: PropsParam): JSX.Element{
     function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>){
         if(e.key === 'Enter' && todoContent.trim() !== ""){
             addTodo(todoContent.trim());
-            inputRef.current.value = "";
+            if(inputRef.current){
+                inputRef.current.value = "";
+            }
             setTodoContent("")
           }
     }

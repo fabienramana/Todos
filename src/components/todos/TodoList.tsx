@@ -7,10 +7,11 @@ type AppProps = {
     removeTodo: (index:number) => void,
     changeStatusOfTodo: (todoStatus: boolean, index: number) => void,
     changeStatusOfAllTodos: (status: boolean) => void, 
+    changeContentOfTodo: (todoContent: string, index: number) => void,
     filter: string
 }
 
-export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, changeStatusOfAllTodos, filter }: AppProps): JSX.Element{
+export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, changeStatusOfAllTodos, filter, changeContentOfTodo }: AppProps): JSX.Element{
 
     const inputRef = useRef(document.createElement("input"));
 
@@ -35,11 +36,11 @@ export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, ch
                             return true;
                         }
                         return false;
-                    }).map((todo, index) => <TodoItem key={index}
-                                                     value={index}
+                    }).map((todo, index) => <TodoItem key={todo.id}
                                                      todo={todo}
                                                      removeTodo={removeTodo}
-                                                     changeStatusOfTodo={changeStatusOfTodo}/>)}
+                                                     changeStatusOfTodo={changeStatusOfTodo}
+                                                     changeContentOfTodo={changeContentOfTodo}/>)}
 				</ul>
 			</section>
     )

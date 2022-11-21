@@ -10,14 +10,17 @@ export default function TodoViewer(): JSX.Element{
 
     const listOfTodos: Array<Todo> = [
         {
+            id:1,
             content:"Wake up early",
             completed: false
         },
         {
+            id:2,
             content:"Sleep early",
             completed: false
         },
         {
+            id:3,
             content:"Do the chores",
             completed: true
         } 
@@ -28,7 +31,9 @@ export default function TodoViewer(): JSX.Element{
     const [filter, setFilter] = useState<string>("all");
 
     function addTodo(content: string): void{
+        const lastElemId = todos[todos.length -1].id
         const todo: Todo = {
+            id: lastElemId+1,
             content,
             completed: false
         }
@@ -36,13 +41,22 @@ export default function TodoViewer(): JSX.Element{
     }
 
     function removeTodo(index: number): void{
-        setTodos(todos.filter((todo,i) => i!== index))
+        setTodos(todos.filter((todo,i) => i+1 !== index))
     }
 
     function changeStatusOfTodo(todoStatus: boolean, index: number): void{
         setTodos(todos.map((todo, i) => {
-            if(i === index){
+            if(i+1 === index){
                 todo.completed = todoStatus
+            }
+            return todo;
+        }))
+    }
+
+    function changeContentOfTodo(todoContent: string, index: number): void{
+        setTodos(todos.map((todo, i)=> {
+            if(i+1 === index){
+                todo.content = todoContent
             }
             return todo;
         }))
@@ -68,6 +82,7 @@ export default function TodoViewer(): JSX.Element{
                     <TodoList todoArray={todos}
                             removeTodo={removeTodo}
                             changeStatusOfTodo={changeStatusOfTodo}
+                            changeContentOfTodo={changeContentOfTodo}
                             changeStatusOfAllTodos={changeStatusOfAllTodos}
                             filter={filter}/>
                     <Footer todoArray={todos}

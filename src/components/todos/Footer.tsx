@@ -13,7 +13,7 @@ export default function Footer({todoArray, removeCompletedTodos, filter, setFilt
 
     return(
         <footer className="footer">
-            <span className="todo-count">{nbrTodosLeft} item left</span>
+            <span className="todo-count"><strong>{nbrTodosLeft}</strong> item{nbrTodosLeft !== 1 && "s"} left</span>
             <ul className="filters">
                 <li>
                     <a className={filter==="all" ? "selected" : ""} onClick={() => setFilter("all")}  href="#/">All</a>
