@@ -58,9 +58,9 @@ export default function TodoItem({ todo, removeTodo, changeStatusOfTodo, changeC
             <div className="view">
                 <input className="toggle" type="checkbox" onChange={handleCheckboxChange} checked={todo.completed}/>
                 <label onClick={handleClick}>{todo.content}</label>
-                <button className="destroy" onClick={() => removeTodo(todo.id)}></button>
+                <button className="destroy" aria-label="delete" onClick={() => removeTodo(todo.id)}></button>
             </div>
-            <input ref={inputModifierRef} className="edit" 
+            <input ref={inputModifierRef} className="edit"
                    onChange={handleChangeValue}
                    onKeyDown={handleKeyPress} 
                    value={modifiedTodoContent}/> 

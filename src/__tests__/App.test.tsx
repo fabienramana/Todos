@@ -26,6 +26,34 @@ describe('TodoItem component', () => {
 
     expect(screen.getByText(todo.content)).toBeInTheDocument();
   })
+
+  test('should not be displayed if clicked on delete button', ()=> {
+    const todo: Todo ={
+      id:1,
+      content: "Soccer match at 3 pm",
+      completed: false
+    }
+
+    const removeTodo = jest.fn()
+    const changeStatusOfTodo = jest.fn()
+    const changeContentOfTodo = jest.fn()
+
+
+    render(<TodoItem todo={todo}
+            removeTodo={removeTodo}
+            changeStatusOfTodo={changeStatusOfTodo}
+            changeContentOfTodo={changeContentOfTodo}/>)
+
+    fireEvent.click(screen.getByRole('button', {
+      name: /delete/i
+    }));
+
+    const expectedCalledTimes = 1;
+    const expectedToBeCalledWith = todo.id;
+
+    expect(removeTodo).toBeCalledTimes(expectedCalledTimes);
+    expect(removeTodo).toBeCalledWith(expectedToBeCalledWith)
+  })
 })
 
 
@@ -79,15 +107,16 @@ describe('TodoInputCreator component', () => {
 
     const input = screen.getByPlaceholderText("What needs to be done?")
     
+    const expectedCalledTimes = 1;
     
     fireEvent.change(input, { target: {value: `${title}`} });
-    input.focus();
-    fireEvent.keyPress(input, { key: "Enter", code: 13 });
-    expect(addTodo).toHaveBeenCalledTimes(1);
+    fireEvent.keyDown(input, { key: "Enter", code: 13 });
+    expect(addTodo).toHaveBeenCalledTimes(expectedCalledTimes);
     expect(addTodo).toHaveBeenCalledWith(title);
     
   })
 }) 
+
 
 
 describe('Footer component', ()=>{
@@ -125,7 +154,7 @@ describe('Footer component', ()=>{
 
     const nbrTodosLeft = listOfTodos.filter((todo)=> todo.completed === false).length
 
-    expect(screen.getByText(`${nbrTodosLeft} item left`)).toBeInTheDocument();
+    expect(screen.getByText(`${nbrTodosLeft} items left`)).toBeInTheDocument();
 
   })
 })

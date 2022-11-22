@@ -30,6 +30,6 @@ export default function TodoInputCreator({addTodo}: PropsParam): JSX.Element{
          ref={inputRef}
          placeholder="What needs to be done?"
          onChange={handleChange} 
-         onKeyPress={handleKeyPress}/>
+         onKeyDown={handleKeyPress}/>
     )
 }
