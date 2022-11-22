@@ -4,7 +4,7 @@ import TodoItem from './TodoItem'
 
 type AppProps = {
     todoArray: Todo[],
-    removeTodo: (index:number) => void,
+    removeTodo: (todo: Todo) => void,
     changeStatusOfTodo: (todoStatus: boolean, index: number) => void,
     changeStatusOfAllTodos: (status: boolean) => void, 
     changeContentOfTodo: (todoContent: string, index: number) => void,
@@ -23,7 +23,7 @@ export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, ch
     return(
         <section className="main">
 				<input id="toggle-all" className="toggle-all" type="checkbox" onClick={(e) => changeStatusOfAllTodos(e.currentTarget.checked)}/>
-				<label onClick={() => updateInputValue()}>Mark all as complete</label>
+				<label aria-label="mark-all" onClick={() => updateInputValue()}>Mark all as complete</label>
 				<ul className="todo-list">
 					{todoArray.filter((todo)=>{
                         if(filter === "active" && todo.completed === false){
@@ -36,7 +36,7 @@ export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, ch
                             return true;
                         }
                         return false;
-                    }).map((todo, index) => <TodoItem key={todo.id}
+                    }).map((todo) => <TodoItem key={todo.id}
                                                      todo={todo}
                                                      removeTodo={removeTodo}
                                                      changeStatusOfTodo={changeStatusOfTodo}

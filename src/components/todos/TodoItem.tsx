@@ -3,7 +3,7 @@ import Todo from "../../models/Todo"
 
 type TodoItemProps = {
     todo: Todo,
-    removeTodo: (index: number) => void,
+    removeTodo: (todo: Todo) => void,
     changeStatusOfTodo: (todoStatus: boolean, index: number) => void,
     changeContentOfTodo: (todoContent: string, index: number) => void
 }
@@ -16,6 +16,8 @@ export default function TodoItem({ todo, removeTodo, changeStatusOfTodo, changeC
 
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.checked)
+        console.log(todo.id)
         changeStatusOfTodo(event.target.checked, todo.id);     
     };
 
@@ -36,7 +38,7 @@ export default function TodoItem({ todo, removeTodo, changeStatusOfTodo, changeC
             setEditMode(!editMode)
          }
         else if (e.key === 'Enter' && modifiedTodoContent.trim() === ""){
-            removeTodo(todo.id);
+            removeTodo(todo);
             setEditMode(!editMode)
          }
 
@@ -56,9 +58,9 @@ export default function TodoItem({ todo, removeTodo, changeStatusOfTodo, changeC
         
         <li className={todo.completed ? editMode ? "completed editing" : "completed"  : editMode ? "editing" : "" }>
             <div className="view">
-                <input className="toggle" type="checkbox" onChange={handleCheckboxChange} checked={todo.completed}/>
+                <input className="toggle" aria-label="changeStatus" type="checkbox" onChange={handleCheckboxChange} checked={todo.completed}/>
                 <label onClick={handleClick}>{todo.content}</label>
-                <button className="destroy" aria-label="delete" onClick={() => removeTodo(todo.id)}></button>
+                <button className="destroy" aria-label="delete" onClick={() => removeTodo(todo)}></button>
             </div>
             <input ref={inputModifierRef} className="edit"
                    onChange={handleChangeValue}

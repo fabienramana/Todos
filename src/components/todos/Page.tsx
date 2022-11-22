@@ -23,8 +23,7 @@ export default function TodoViewer(): JSX.Element{
             id:3,
             content:"Do the chores",
             completed: true
-        } 
-
+        }
     ]
 
     const [todos, setTodos] = useState<Todo[]>(listOfTodos)
@@ -40,26 +39,32 @@ export default function TodoViewer(): JSX.Element{
         setTodos([...todos, todo]);
     }
 
-    function removeTodo(index: number): void{
-        setTodos(todos.filter((todo,i) => i+1 !== index))
+    function removeTodo(todo: Todo): void{
+        setTodos(todos.filter((t) => t.content !== todo.content)  );
     }
 
     function changeStatusOfTodo(todoStatus: boolean, index: number): void{
-        setTodos(todos.map((todo, i) => {
-            if(i+1 === index){
+        const shallowCopy = todos.slice();
+ 
+        shallowCopy.forEach(todo => {
+            if(index === todo.id){
                 todo.completed = todoStatus
+                console.log(todo)
             }
-            return todo;
-        }))
+        })
+        setTodos(shallowCopy)
     }
 
     function changeContentOfTodo(todoContent: string, index: number): void{
-        setTodos(todos.map((todo, i)=> {
-            if(i+1 === index){
+        const shallowCopy = todos.slice();
+
+        shallowCopy.forEach(todo => {
+            if(index === todo.id){
                 todo.content = todoContent
             }
-            return todo;
-        }))
+        })
+
+        setTodos(shallowCopy)
     }
 
     function removeCompletedTodos(): void{
