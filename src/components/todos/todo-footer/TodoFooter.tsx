@@ -1,13 +1,13 @@
-import Todo from "../../models/Todo"
+import Todo from "../../../models/Todo"
 
-type AppProps = {
+type FooterProps = {
     todoArray: Todo[],
     removeCompletedTodos: ()=> void,
     filter: string,
     setFilter: (filter: string) => void
 }
 
-export default function Footer({todoArray, removeCompletedTodos, filter, setFilter}: AppProps): JSX.Element {
+export default function TodoFooter({todoArray, removeCompletedTodos, filter, setFilter}: FooterProps){
 
     const nbrTodosLeft = todoArray.filter((todo) => todo.completed === false).length
 

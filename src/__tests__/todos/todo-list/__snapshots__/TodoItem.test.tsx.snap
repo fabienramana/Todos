@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoItem component should display todo content 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="view"
+    >
+      <input
+        aria-label="changeStatus"
+        class="toggle"
+        type="checkbox"
+      />
+      <label>
+        Soccer match at 3 pm
+      </label>
+      <button
+        aria-label="delete"
+        class="destroy"
+      />
+    </div>
+    <input
+      class="edit"
+      value="Soccer match at 3 pm"
+    />
+  </div>
+</DocumentFragment>
+`;

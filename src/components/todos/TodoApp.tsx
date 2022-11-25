@@ -1,12 +1,11 @@
-import Footer from "./Footer";
-import Header from "./Header";
-import TodoInputCreator from "./TodoInputCreator";
-import TodoList from "./TodoList";
+import TodoFooter from "./todo-footer/TodoFooter";
+import TodoInputCreator from "./todo-creator/TodoInputCreator";
+import TodoList from "./todo-list/TodoList";
 import Todo from "../../models/Todo";
 
 import {useState} from 'react'
 
-export default function TodoViewer(): JSX.Element{
+export default function TodoApp(){
 
     const listOfTodos: Array<Todo> = [
         {
@@ -77,20 +76,36 @@ export default function TodoViewer(): JSX.Element{
             return todo;
         }))
     }
+
+    function setTodosArrayByFilter(): Todo[]{
+        return todos.filter((todo)=>{
+            if(filter === "active" && todo.completed === false){
+                return true;
+            }
+            else if(filter === "completed" && todo.completed === true){
+                return true;
+            }
+            else if(filter === "all"){
+                return true;
+            }
+            return false;
+        })
+    }
     
     return (
         <div>
             <section className="todoapp">
-                <Header/>
+                <header className="header">
+                    <h1>todos</h1>   
+                </header>
                 <TodoInputCreator addTodo={addTodo}/>
                 <div style={ todos.length>0 ? {display: ""} : {display: "none"}}>
-                    <TodoList todoArray={todos}
+                    <TodoList todoArray={setTodosArrayByFilter()}
                             removeTodo={removeTodo}
                             changeStatusOfTodo={changeStatusOfTodo}
                             changeContentOfTodo={changeContentOfTodo}
-                            changeStatusOfAllTodos={changeStatusOfAllTodos}
-                            filter={filter}/>
-                    <Footer todoArray={todos}
+                            changeStatusOfAllTodos={changeStatusOfAllTodos}/>
+                    <TodoFooter todoArray={todos}
                             removeCompletedTodos={removeCompletedTodos}
                             filter={filter}
                             setFilter={setFilter}/>
