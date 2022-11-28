@@ -13,11 +13,10 @@ describe('TodoInputCreator component', () => {
   
       const input = screen.getByPlaceholderText("What needs to be done?")
       
-      const expectedCalledTimes = 1;
       
       fireEvent.change(input, { target: {value: `${title}`} });
       fireEvent.keyDown(input, { key: "Enter", code: 13 });
-      expect(addTodo).toHaveBeenCalledTimes(expectedCalledTimes);
+      expect(addTodo).toHaveBeenCalledTimes(1);
       expect(addTodo).toHaveBeenCalledWith(title);
     })
   }) 

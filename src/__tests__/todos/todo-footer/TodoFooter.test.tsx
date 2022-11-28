@@ -29,8 +29,8 @@ describe('Footer component', ()=>{
     /****************** Comment faire pour matcher le texte quand split en plusieurs balises ? EX : <p><strong>0</strong> item left</p> ****************/   
     test('should render number of todos left', ()=>{
   
-      const removeCompletedTodos = jest.fn();
-      const setFilter = jest.fn();
+      const removeCompletedTodos = () => {};
+      const setFilter = () => {};
   
       render(<Footer todoArray={listOfTodos} 
               removeCompletedTodos={removeCompletedTodos}
@@ -45,7 +45,7 @@ describe('Footer component', ()=>{
     test("should call removeCompletedTodos if Clear completed button is clicked", ()=>{
   
       const removeCompletedTodos = jest.fn();
-      const setFilter = jest.fn();
+      const setFilter = () => {};
   
       render(<Footer todoArray={listOfTodos} 
         removeCompletedTodos={removeCompletedTodos}
@@ -77,7 +77,7 @@ describe('Footer component', ()=>{
   
     test("should call setFilter with active if active filter is clicked", ()=>{
       
-      const removeCompletedTodos = jest.fn();
+      const removeCompletedTodos = () => {};
       const setFilter = jest.fn();
   
       filter = "active"
@@ -96,7 +96,7 @@ describe('Footer component', ()=>{
   
     test("should call setFilter with completed if active filter is clicked", ()=>{
   
-      const removeCompletedTodos = jest.fn();
+      const removeCompletedTodos = () => {};
       const setFilter = jest.fn();
   
       filter= "completed"

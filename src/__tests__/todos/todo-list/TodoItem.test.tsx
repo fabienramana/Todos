@@ -10,18 +10,19 @@ describe('TodoItem component', () => {
       completed: false
     }
   
-    
-  
     test('should display todo content', () => {
   
-      const removeTodo = jest.fn()
-      const changeStatusOfTodo = jest.fn()
-      const changeContentOfTodo = jest.fn()
+      const removeTodo = () => {}
+      const changeStatusOfTodo = () => {}
+      const changeContentOfTodo = () => {}
+      const setEditMode = () => {}
   
       const {asFragment} = render(<TodoItem todo={todo}
               removeTodo={removeTodo}
               changeStatusOfTodo={changeStatusOfTodo}
-              changeContentOfTodo={changeContentOfTodo}/>)
+              changeContentOfTodo={changeContentOfTodo}
+              editModeIndex={0}
+              setEditMode={setEditMode}/>)
   
       expect(screen.getByText(todo.content)).toBeInTheDocument();
       expect(asFragment()).toMatchSnapshot();
@@ -30,13 +31,16 @@ describe('TodoItem component', () => {
     test("should call 'removeTodo' with todo if clicked on delete button", ()=> {
   
       const removeTodo = jest.fn()
-      const changeStatusOfTodo = jest.fn()
-      const changeContentOfTodo = jest.fn()
+      const changeStatusOfTodo = () => {}
+      const changeContentOfTodo = () => {}
+      const setEditMode = () => {}
   
       render(<TodoItem todo={todo}
               removeTodo={removeTodo}
               changeStatusOfTodo={changeStatusOfTodo}
-              changeContentOfTodo={changeContentOfTodo}/>)
+              changeContentOfTodo={changeContentOfTodo}
+              editModeIndex={0}
+              setEditMode={setEditMode}/>)
   
       fireEvent.click(screen.getByRole('button', {
         name: /delete/i
@@ -46,20 +50,23 @@ describe('TodoItem component', () => {
       expect(removeTodo).toBeCalledWith(todo)
     })
   
-    test("should call changeStatusOfTodo if checkbox is toggled", () => {
+    test("should call changeStatusOfTodo with if checkbox is toggled once", () => {
   
-      const removeTodo = jest.fn()
+      const removeTodo = () => {}
       const changeStatusOfTodo = jest.fn()
-      const changeContentOfTodo = jest.fn()
+      const changeContentOfTodo = () => {}
+      const setEditMode = () => {}
   
       render(<TodoItem todo={todo}
         removeTodo={removeTodo}
         changeStatusOfTodo={changeStatusOfTodo}
-        changeContentOfTodo={changeContentOfTodo}/>)
+        changeContentOfTodo={changeContentOfTodo}
+        editModeIndex={0}
+        setEditMode={setEditMode}/>)
   
         fireEvent.click(screen.getByRole('checkbox'));
-        fireEvent.click(screen.getByRole('checkbox'));
   
-        expect(changeStatusOfTodo).toBeCalledTimes(2);
+        expect(changeStatusOfTodo).toBeCalledTimes(1);
+        expect(changeStatusOfTodo).toHaveBeenCalledWith(true, 1)
     })
   })

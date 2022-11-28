@@ -24,9 +24,6 @@ describe('TodoList component', () => {
       } 
   
   ]
-  
-    const filter= "all"
-  
     
     test('should display all todos content', () => {
   
@@ -38,7 +35,6 @@ describe('TodoList component', () => {
       render(<TodoList todoArray={listOfTodos} 
         removeTodo={removeTodo}
         changeStatusOfTodo={changeStatusOfTodo}
-        filter={filter}
         changeStatusOfAllTodos={changeStatusOfAllTodos}
         changeContentOfTodo={changeContentOfTodo}/>)
       
@@ -57,7 +53,6 @@ describe('TodoList component', () => {
       render(<TodoList todoArray={listOfTodos} 
         removeTodo={removeTodo}
         changeStatusOfTodo={changeStatusOfTodo}
-        filter={filter}
         changeStatusOfAllTodos={changeStatusOfAllTodos}
         changeContentOfTodo={changeContentOfTodo}/>)
         
