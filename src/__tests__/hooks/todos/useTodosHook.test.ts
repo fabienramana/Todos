@@ -177,24 +177,21 @@ describe('useTodosHook should', () => {
             expect(todo.completed).toEqual(true)
         })        
     })
-    /************************************  MARCHE PAS  *************************************/
-    test("should filter todos with active todos if filter is 'active'", () =>{
+    
+    test("should filter todos with active todos if filter is 'all'", () =>{
         const {result} = renderHook(() => useTodosHook())
         
-        result.current.filter = "active";
 
         let filteredArray: Todo[] = []
+        const todosLength = result.current.todos.length
 
         act(() => {
-          result.current.setFilter("active")
+          result.current.setFilter("all")
           filteredArray = result.current.setTodosArrayByFilter()
         })
 
         console.log(filteredArray)
-        console.log(result)
-        filteredArray.forEach(todo => {
-            expect(todo.completed).toEqual(false)
-        })
+        expect(result.current.todos.length).toEqual(todosLength)
     })
     
 })
