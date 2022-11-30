@@ -23,6 +23,10 @@ export default function useInitTodos(){
     const [todos, setTodos] = useState<Todo[]>(listOfTodos)
     const [filter, setFilter] = useState<string>("all");
 
+    const [todoContent, setTodoContent] = useState<string>('');
+
+    const [markAllTodosBool, setMarkAllTodosBool] = useState<boolean>(true);
+
     const addTodo = (content: string): void => {
         const lastElemId = todos[todos.length -1].id
         const todo: Todo = {
@@ -43,7 +47,6 @@ export default function useInitTodos(){
         shallowCopy.forEach(todo => {
             if(index === todo.id){
                 todo.completed = todoStatus
-                console.log(todo)
             }
         })
         setTodos(shallowCopy)
@@ -88,7 +91,11 @@ export default function useInitTodos(){
     }
 
     return { todos, 
-             filter, 
+             filter,
+             todoContent,
+             markAllTodosBool,
+             setMarkAllTodosBool,
+             setTodoContent, 
              setFilter, 
              addTodo, 
              removeTodo, 

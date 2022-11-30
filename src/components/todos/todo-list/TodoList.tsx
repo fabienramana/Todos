@@ -1,7 +1,8 @@
-import { useState } from "react";
 import Todo from "../../../models/Todo"
 import TodoItem from './TodoItem'
 import classNames from 'classnames';
+import useTodosHook from '../../../hooks/todos/useTodosHook'
+import { useState } from "react";
 
 type TodoListProps = {
     todoArray: Todo[],
@@ -13,8 +14,10 @@ type TodoListProps = {
 
 export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, changeStatusOfAllTodos, changeContentOfTodo }: TodoListProps){
 
-    const [markAllTodosBool, setMarkAllTodosBool] = useState<boolean>(true);
+    // const [markAllTodosBool, setMarkAllTodosBool] = useState<boolean>(true);
     const [editModeIndex, setEditMode] = useState<number>(0);
+
+    const { markAllTodosBool, setMarkAllTodosBool } = useTodosHook();
 
     function updateInputValue(){
         changeStatusOfAllTodos(markAllTodosBool);

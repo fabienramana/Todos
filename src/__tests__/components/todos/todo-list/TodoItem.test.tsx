@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react"
-import TodoItem from "../../../components/todos/todo-list/TodoItem"
-import Todo from "../../../models/Todo"
+import TodoItem from "../../../../components/todos/todo-list/TodoItem"
+import Todo from "../../../../models/Todo"
 
 
 describe('TodoItem component', () => {

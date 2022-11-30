@@ -5,7 +5,8 @@ import useTodosHook from "../../hooks/todos/useTodosHook"
 
 export default function TodoApp(){
 
-    const { todos, 
+    const { 
+        todos, 
         filter, 
         setFilter, 
         addTodo, 
@@ -14,7 +15,8 @@ export default function TodoApp(){
         changeContentOfTodo,
         removeCompletedTodos,
         changeStatusOfAllTodos,
-        setTodosArrayByFilter } = useTodosHook()
+        setTodosArrayByFilter 
+    } = useTodosHook()
     
     return (
         <div>

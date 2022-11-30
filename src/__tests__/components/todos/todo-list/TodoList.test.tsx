@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react"
-import TodoList from "../../../components/todos/todo-list/TodoList"
-import Todo from "../../../models/Todo"
+import TodoList from "../../../../components/todos/todo-list/TodoList"
+import Todo from "../../../../models/Todo"
 
 
 

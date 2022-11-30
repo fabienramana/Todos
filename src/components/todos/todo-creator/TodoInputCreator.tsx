@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import useTodosHook from '../../../hooks/todos/useTodosHook'
 
 type TodoInputCreatorProps = {
     addTodo: (content:string) => void
 }
 
 export default function TodoInputCreator({addTodo}: TodoInputCreatorProps){
-    const [todoContent, setTodoContent] = useState<string>('');
+    /* const [todoContent, setTodoContent] = useState<string>(''); */
+
+    const {todoContent, setTodoContent} = useTodosHook()
     
 
 

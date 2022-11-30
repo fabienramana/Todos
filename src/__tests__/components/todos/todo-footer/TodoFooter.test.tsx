@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Footer from "../../../components/todos/todo-footer/TodoFooter";
-import Todo from "../../../models/Todo";
+import Footer from "../../../../components/todos/todo-footer/TodoFooter";
+import Todo from "../../../../models/Todo";
 
 
 describe('Footer component', ()=>{
