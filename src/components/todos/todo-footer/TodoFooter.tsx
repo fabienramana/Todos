@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Todo from "../../../models/Todo"
 
 type FooterProps = {
@@ -14,17 +15,20 @@ export default function TodoFooter({todoArray, removeCompletedTodos, filter, set
     return(
         <footer className="footer">
             <span className="todo-count">{nbrTodosLeft} item{nbrTodosLeft !== 1 && "s"} left</span>
-            <ul className="filters">
+             <ul className="filters">
                 <li>
-                    <a className={filter==="all" ? "selected" : ""} onClick={() => setFilter("all")}  href="#/">All</a>
+                    <Link className={filter==="all" ? "selected" : ""} to="/" onClick={() => setFilter("all")}>All</Link>
+                    {/* <a className={filter==="all" ? "selected" : ""} onClick={() => setFilter("all")}  href="#/">All</a> */}
                 </li>
                 <li>
-                    <a className={filter==="active" ? "selected" : ""} onClick={() => setFilter("active")} href="#/active">Active</a>
+                    <Link className={filter==="active" ? "selected" : ""} to="/active"  onClick={() => setFilter("active")}>Active</Link>
+                    {/* <a className={filter==="active" ? "selected" : ""} onClick={() => setFilter("active")} href="#/active">Active</a> */}
                 </li>
                 <li>
-                    <a className={filter==="completed" ? "selected" : ""} onClick={() => setFilter("completed")} href="#/completed">Completed</a>
+                    <Link className={filter==="completed" ? "selected" : ""} to="/completed" onClick={() => setFilter("completed")} >Completed</Link>
+                    {/* <a className={filter==="completed" ? "selected" : ""} onClick={() => setFilter("completed")} href="#/completed">Completed</a> */}
                 </li>
-            </ul>
+            </ul> 
             <button className="clear-completed" onClick={() => removeCompletedTodos()}>Clear completed</button>
         </footer>
     )

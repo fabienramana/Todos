@@ -5,9 +5,8 @@ type TodoInputCreatorProps = {
 }
 
 export default function TodoInputCreator({addTodo}: TodoInputCreatorProps){
-    /* const [todoContent, setTodoContent] = useState<string>(''); */
 
-    const {todoContent, setTodoContent} = useTodosHook()
+    const {todoContent, setTodoContent} = useTodosHook("")
     
 
 

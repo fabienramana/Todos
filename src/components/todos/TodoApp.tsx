@@ -3,7 +3,12 @@ import TodoInputCreator from "./todo-creator/TodoInputCreator";
 import TodoList from "./todo-list/TodoList";
 import useTodosHook from "../../hooks/todos/useTodosHook"
 
-export default function TodoApp(){
+
+type TodoAppProps = {
+    parentFilter: string
+}
+
+export default function TodoApp({parentFilter}: TodoAppProps){
 
     const { 
         todos, 
@@ -16,7 +21,7 @@ export default function TodoApp(){
         removeCompletedTodos,
         changeStatusOfAllTodos,
         setTodosArrayByFilter 
-    } = useTodosHook()
+    } = useTodosHook(parentFilter)
     
     return (
         <div>

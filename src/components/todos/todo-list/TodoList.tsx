@@ -17,7 +17,7 @@ export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, ch
     // const [markAllTodosBool, setMarkAllTodosBool] = useState<boolean>(true);
     const [editModeIndex, setEditMode] = useState<number>(0);
 
-    const { markAllTodosBool, setMarkAllTodosBool } = useTodosHook();
+    const { markAllTodosBool, setMarkAllTodosBool } = useTodosHook("");
 
     function updateInputValue(){
         changeStatusOfAllTodos(markAllTodosBool);

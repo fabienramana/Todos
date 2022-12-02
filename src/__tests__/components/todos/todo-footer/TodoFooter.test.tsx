@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import Footer from "../../../../components/todos/todo-footer/TodoFooter";
 import Todo from "../../../../models/Todo";
 
@@ -35,7 +36,7 @@ describe('Footer component', ()=>{
       render(<Footer todoArray={listOfTodos} 
               removeCompletedTodos={removeCompletedTodos}
               setFilter={setFilter}
-              filter={filter}/>)
+              filter={filter}/>, {wrapper: BrowserRouter})
   
       const nbrTodosLeft = listOfTodos.filter((todo)=> todo.completed === false).length
   
@@ -50,7 +51,7 @@ describe('Footer component', ()=>{
       render(<Footer todoArray={listOfTodos} 
         removeCompletedTodos={removeCompletedTodos}
         setFilter={setFilter}
-        filter={filter}/>)
+        filter={filter}/>, {wrapper: BrowserRouter})
   
         fireEvent.click(screen.getByRole('button'));
   
@@ -65,7 +66,7 @@ describe('Footer component', ()=>{
       render(<Footer todoArray={listOfTodos} 
         removeCompletedTodos={removeCompletedTodos}
         setFilter={setFilter}
-        filter={filter}/>)
+        filter={filter}/>, {wrapper: BrowserRouter})
   
         fireEvent.click(screen.getByRole('link', {
           name: /all/i
@@ -84,7 +85,7 @@ describe('Footer component', ()=>{
       render(<Footer todoArray={listOfTodos} 
         removeCompletedTodos={removeCompletedTodos}
         setFilter={setFilter}
-        filter={filter}/>)
+        filter={filter}/>, {wrapper: BrowserRouter})
   
         fireEvent.click(screen.getByRole('link', {
           name: /active/i
@@ -104,7 +105,7 @@ describe('Footer component', ()=>{
       render(<Footer todoArray={listOfTodos} 
         removeCompletedTodos={removeCompletedTodos}
         setFilter={setFilter}
-        filter={filter}/>)
+        filter={filter}/>, {wrapper: BrowserRouter})
   
         fireEvent.click(screen.getByRole('link', {
           name: /completed/i

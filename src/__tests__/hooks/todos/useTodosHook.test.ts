@@ -5,16 +5,16 @@ import { act, renderHook } from "@testing-library/react"
 describe('useTodosHook should', () => {
 
     test("init state value", ()=> {
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
         
         expect(result.current.todos.length).toEqual(3);
-        expect(result.current.filter).toEqual("all")
+        expect(result.current.filter).toEqual("")
         expect(result.current.todoContent).toEqual('')
         expect(result.current.markAllTodosBool).toEqual(true)
     })
 
     test("change value of markAllTodosBool if setMarkAllTodosBool is called with defined boolean", () => {
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
         const parameter = false;
 
@@ -27,7 +27,7 @@ describe('useTodosHook should', () => {
     })
 
     test("change value of todoContent if setTodoContent is called with a string", () => {
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
         const parameter = "new title";
 
@@ -41,11 +41,11 @@ describe('useTodosHook should', () => {
     })
 
     test("change value of filter if setFilter is called with a string", () => {
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
         const parameter = "active";
 
-        expect(result.current.filter).toEqual("all")
+        expect(result.current.filter).toEqual("")
 
         act(() => {
             result.current.setFilter(parameter);
@@ -56,7 +56,7 @@ describe('useTodosHook should', () => {
 
     test("add todo to state when addTodo is invoked with a title", () => {
         
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
         const title = "Soccer at 6pm";
         const todosLength = result.current.todos.length
@@ -73,7 +73,7 @@ describe('useTodosHook should', () => {
 
     test("remove todo from state when remove is invoked with a todo", () => {
         
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
         const todosLength = result.current.todos.length
         expect(result.current.todos.length).toEqual(todosLength);
@@ -105,7 +105,7 @@ describe('useTodosHook should', () => {
     })
 
     test("change status of a todo when changeStatusOfTodo is invoked with a defined boolean", () =>{
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
 
         expect(result.current.todos[0].completed).toEqual(false);
@@ -118,7 +118,7 @@ describe('useTodosHook should', () => {
     })
 
     test("change content of a todo when changeContentOfTodo is invoked with a defined string", () =>{
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
 
         expect(result.current.todos[0].content).toEqual("Wake up early");
@@ -133,7 +133,7 @@ describe('useTodosHook should', () => {
     })
 
     test("remove completed todos when removeCompletedTodos is invoked", () =>{
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
         let trueTodos = 0;
 
@@ -154,7 +154,7 @@ describe('useTodosHook should', () => {
     })
 
     test("change status of all todos todos when changeStatusOfAllTodos is invoked with a defined boolean", () =>{
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
 
         let trueTodos = 0;
         let falseTodos = 0;
@@ -179,7 +179,7 @@ describe('useTodosHook should', () => {
     })
     
     test("should filter todos with active todos if filter is 'all'", () =>{
-        const {result} = renderHook(() => useTodosHook())
+        const {result} = renderHook(() => useTodosHook(""))
         
 
         let filteredArray: Todo[] = []

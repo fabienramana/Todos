@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import Todo from '../../models/Todo'
 
-export default function useInitTodos(){
+export default function useInitTodos(parentFilter: string){
     const listOfTodos: Array<Todo> = [
         {
             id:1,
@@ -21,7 +21,7 @@ export default function useInitTodos(){
     ]
 
     const [todos, setTodos] = useState<Todo[]>(listOfTodos)
-    const [filter, setFilter] = useState<string>("all");
+    const [filter, setFilter] = useState<string>(parentFilter);
 
     const [todoContent, setTodoContent] = useState<string>('');
 
