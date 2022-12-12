@@ -1,50 +1,38 @@
 import Todo from "../../../models/Todo"
 import TodoItem from './TodoItem'
 import classNames from 'classnames';
-import useTodosHook from '../../../hooks/todos/useTodosHook'
 import { useState } from "react";
 
 type TodoListProps = {
-    todoArray: Todo[],
-    removeTodo: (todo: Todo) => void,
-    changeStatusOfTodo: (todoStatus: boolean, index: number) => void,
-    changeStatusOfAllTodos: (status: boolean) => void, 
-    changeContentOfTodo: (todoContent: string, index: number) => void
+    todos: Todo[],
+    removeTodo: (id: number) => void,
+    changeTodo: (todo: Partial<Todo>, id: number) => void
 }
 
-export default function TodoList({ todoArray, removeTodo, changeStatusOfTodo, changeStatusOfAllTodos, changeContentOfTodo }: TodoListProps){
-
-    // const [markAllTodosBool, setMarkAllTodosBool] = useState<boolean>(true);
+export default function TodoList({ todos, removeTodo, changeTodo }: TodoListProps){
     const [editModeIndex, setEditMode] = useState<number>(0);
 
-    const { markAllTodosBool, setMarkAllTodosBool } = useTodosHook("");
-
-    function updateInputValue(){
-        changeStatusOfAllTodos(markAllTodosBool);
-        setMarkAllTodosBool(!markAllTodosBool)
+    const resetEditMode = () => {
+        setEditMode(0)
     }
 
-    return(
-        <section className="main">
-				<input id="toggle-all" className="toggle-all" type="checkbox"/>
-				<label aria-label="mark-all" onClick={() => updateInputValue()}>Mark all as complete</label>
+    return(		
 				<ul className="todo-list">
-					{todoArray.map((todo) => {
+					{todos.map((todo) => {
                         const myComponentClasses = classNames({
-                            "completed": todo.completed ? true : false,
-                            "editing": editModeIndex === todo.id ? true : false
+                            "completed": todo.completed,
+                            "editing": editModeIndex === todo.id
                         })
                         return(<li key={todo.id} className={myComponentClasses}>
                                     <TodoItem 
-                                            todo={todo}
-                                            removeTodo={removeTodo}
-                                            changeStatusOfTodo={changeStatusOfTodo}
-                                            changeContentOfTodo={changeContentOfTodo}
-                                            editModeIndex={editModeIndex}
-                                            setEditMode={setEditMode} />
+                                            todoTitle={todo.title}
+                                            todoStatus={todo.completed}
+                                            removeTodo={() => removeTodo(todo.id)}
+                                            changeTodo={(t: Partial<Todo>, id=todo.id) => changeTodo(t, id)}
+                                            setEditMode={() => setEditMode(todo.id)}
+                                            resetEditMode={resetEditMode} />
                                </li>)
                     })}
 				</ul>
-			</section>
     )
 }

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import TodoList from "../../../../components/todos/todo-list/TodoList"
 import Todo from "../../../../models/Todo"
 
@@ -9,17 +9,17 @@ describe('TodoList component', () => {
     const listOfTodos: Array<Todo> = [
       {
           id:1,
-          content:"Wake up early",
+          title:"Wake up early",
           completed: false
       },
       {
           id:2,
-          content:"Sleep early",
+          title:"Sleep early",
           completed: false
       },
       {
           id:3,
-          content:"Do the chores",
+          title:"Do the chores",
           completed: true
       } 
   
@@ -27,40 +27,28 @@ describe('TodoList component', () => {
     
     test('should display all todos content', () => {
   
-      const removeTodo = jest.fn()
-      const changeStatusOfTodo = jest.fn()
-      const changeStatusOfAllTodos = jest.fn()
-      const changeContentOfTodo = jest.fn()
+      const removeTodo = () => {}
+      const changeTodo = () => {}
   
-      render(<TodoList todoArray={listOfTodos} 
+      render(<TodoList todos={listOfTodos} 
         removeTodo={removeTodo}
-        changeStatusOfTodo={changeStatusOfTodo}
-        changeStatusOfAllTodos={changeStatusOfAllTodos}
-        changeContentOfTodo={changeContentOfTodo}/>)
+        changeTodo={changeTodo}/>)
       
       listOfTodos.forEach(todo => {
-        expect(screen.getByText(todo.content)).toBeInTheDocument();
+        expect(screen.getByText(todo.title)).toBeInTheDocument();
       })
     })
+
+    test('should match snapshot', () => {
   
-    test("should call 'changeStatusOfAllTodos' if 'mark all' label is clicked", () => {
+      const removeTodo = () => {}
+      const changeTodo = () => {}
   
-      const removeTodo = jest.fn()
-      const changeStatusOfTodo = jest.fn()
-      const changeStatusOfAllTodos = jest.fn()
-      const changeContentOfTodo = jest.fn()
-  
-      render(<TodoList todoArray={listOfTodos} 
+      const {asFragment} = render(<TodoList todos={listOfTodos} 
         removeTodo={removeTodo}
-        changeStatusOfTodo={changeStatusOfTodo}
-        changeStatusOfAllTodos={changeStatusOfAllTodos}
-        changeContentOfTodo={changeContentOfTodo}/>)
-        
-        const markAllLabel = screen.getByLabelText('mark-all')
+        changeTodo={changeTodo}/>)
   
-        fireEvent.click(markAllLabel);
-  
-        expect(changeStatusOfAllTodos).toBeCalledTimes(1);
-        expect(changeStatusOfAllTodos).toBeCalledWith(true)
+      expect(asFragment()).toMatchSnapshot();
     })
+
   })

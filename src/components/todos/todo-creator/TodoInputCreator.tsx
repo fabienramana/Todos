@@ -1,4 +1,4 @@
-import useTodosHook from '../../../hooks/todos/useTodosHook'
+import { useState } from 'react'
 
 type TodoInputCreatorProps = {
     addTodo: (content:string) => void
@@ -6,17 +6,17 @@ type TodoInputCreatorProps = {
 
 export default function TodoInputCreator({addTodo}: TodoInputCreatorProps){
 
-    const {todoContent, setTodoContent} = useTodosHook("")
+    const [todoContent, setTodoContent] = useState("")
     
-
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
         setTodoContent(e.target.value)
     }
 
     function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>){
-        if(e.key === 'Enter' && todoContent.trim() !== ""){
-            addTodo(todoContent.trim());
+        const normalizedInput = todoContent.trim();
+        if(e.key === 'Enter' && normalizedInput !== ""){
+            addTodo(normalizedInput);
             setTodoContent("")
           }
     }

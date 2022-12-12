@@ -5,59 +5,59 @@ export default function useInitTodos(parentFilter: string){
     const listOfTodos: Array<Todo> = [
         {
             id:1,
-            content:"Wake up early",
+            title:"Wake up early",
             completed: false
         },
         {
             id:2,
-            content:"Sleep early",
+            title:"Sleep early",
             completed: false
         },
         {
             id:3,
-            content:"Do the chores",
+            title:"Do the chores",
             completed: true
         }
     ]
 
     const [todos, setTodos] = useState<Todo[]>(listOfTodos)
-    const [filter, setFilter] = useState<string>(parentFilter);
 
-    const [todoContent, setTodoContent] = useState<string>('');
-
-    const [markAllTodosBool, setMarkAllTodosBool] = useState<boolean>(true);
-
-    const addTodo = (content: string): void => {
-        const lastElemId = todos[todos.length -1].id
-        const todo: Todo = {
-            id: lastElemId+1,
-            content,
-            completed: false
+    const addTodo = (title: string): void => {
+        let todo: Todo
+        if(todos.length>0){
+            const lastElemId = todos[todos.length -1].id
+            todo = {
+                id: lastElemId+1,
+                title,
+                completed: false
+            }
+        }
+        else{
+            todo = {
+                id: 1,
+                title,
+                completed: false
+            }
         }
         setTodos([...todos, todo]);
     }
 
-    const removeTodo = (todo: Todo) => {
-        setTodos(todos.filter((t) => t.content !== todo.content)  );
+    const removeTodo = (id:number) => {
+        setTodos(todos.filter((t) => t.id !== id));
     }
 
-    const changeStatusOfTodo = (todoStatus: boolean, index: number) => {
-        const shallowCopy = todos.slice();
- 
-        shallowCopy.forEach(todo => {
-            if(index === todo.id){
-                todo.completed = todoStatus
-            }
-        })
-        setTodos(shallowCopy)
-    }
 
-    const changeContentOfTodo = (todoContent: string, index: number) => {
-        const shallowCopy = todos.slice();
-
-        shallowCopy.forEach(todo => {
-            if(index === todo.id){
-                todo.content = todoContent
+    const changeTodo = (todo: Partial<Todo>, id: number) => {
+        const shallowCopy = todos.slice()
+        
+        shallowCopy.forEach(t => {
+            if(t.id === id){
+                if("title" in todo){
+                    t.title = todo.title || ""
+                }
+                if("completed" in todo){
+                    t.completed = todo.completed || false
+                }
             }
         })
 
@@ -77,13 +77,13 @@ export default function useInitTodos(parentFilter: string){
 
     const setTodosArrayByFilter = (): Todo[] => {
         return todos.filter((todo)=>{
-            if(filter === "active" && todo.completed === false){
+            if(parentFilter === "active" && todo.completed === false){
                 return true;
             }
-            else if(filter === "completed" && todo.completed === true){
+            else if(parentFilter === "completed" && todo.completed === true){
                 return true;
             }
-            else if(filter === "all"){
+            else if(parentFilter === "all"){
                 return true;
             }
             return false;
@@ -91,16 +91,9 @@ export default function useInitTodos(parentFilter: string){
     }
 
     return { todos, 
-             filter,
-             todoContent,
-             markAllTodosBool,
-             setMarkAllTodosBool,
-             setTodoContent, 
-             setFilter, 
              addTodo, 
-             removeTodo, 
-             changeStatusOfTodo,
-             changeContentOfTodo,
+             removeTodo,
+             changeTodo,
              removeCompletedTodos,
              changeStatusOfAllTodos,
              setTodosArrayByFilter };

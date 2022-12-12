@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TodoItem component should display todo content 1`] = `
+exports[`TodoItem component should display todo title 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -11,7 +11,9 @@ exports[`TodoItem component should display todo content 1`] = `
         class="toggle"
         type="checkbox"
       />
-      <label>
+      <label
+        aria-label="title"
+      >
         Soccer match at 3 pm
       </label>
       <button

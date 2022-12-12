@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component should match snapshot 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer"
+  >
+    <span
+      class="todo-count"
+    >
+      3 items left
+    </span>
+    <ul
+      class="filters"
+    >
+      <li>
+        <a
+          aria-current="page"
+          class="selected"
+          data-testid="all"
+          href="/"
+        >
+          All
+        </a>
+      </li>
+      <li>
+        <a
+          data-testid="active"
+          href="/active"
+        >
+          Active
+        </a>
+      </li>
+      <li>
+        <a
+          data-testid="completed"
+          href="/completed"
+        >
+          Completed
+        </a>
+      </li>
+    </ul>
+    <button
+      class="clear-completed"
+    >
+      Clear completed
+    </button>
+  </footer>
+</DocumentFragment>
+`;
