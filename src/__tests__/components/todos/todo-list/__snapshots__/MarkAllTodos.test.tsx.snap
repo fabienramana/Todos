@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodosPage should match snapshot 1`] = `
+<DocumentFragment>
+  <input
+    checked=""
+    class="toggle-all"
+    id="toggle-all"
+    type="checkbox"
+  />
+  <label
+    aria-label="mark-all"
+  >
+    Mark all as complete
+  </label>
+</DocumentFragment>
+`;

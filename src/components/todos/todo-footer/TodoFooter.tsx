@@ -1,31 +1,32 @@
-import Todo from "../../../models/Todo"
+import { NavLink } from "react-router-dom"
 
 type FooterProps = {
-    todoArray: Todo[],
     removeCompletedTodos: ()=> void,
-    filter: string,
-    setFilter: (filter: string) => void
+    nbrOfTodosLeft: number,
+    nbrOfTodosCompleted: number
 }
 
-export default function TodoFooter({todoArray, removeCompletedTodos, filter, setFilter}: FooterProps){
-
-    const nbrTodosLeft = todoArray.filter((todo) => todo.completed === false).length
+export default function TodoFooter({removeCompletedTodos, nbrOfTodosLeft, nbrOfTodosCompleted}: FooterProps){
 
     return(
         <footer className="footer">
-            <span className="todo-count">{nbrTodosLeft} item{nbrTodosLeft !== 1 && "s"} left</span>
-            <ul className="filters">
+            <span className="todo-count">{nbrOfTodosLeft} item{nbrOfTodosLeft !== 1 && "s"} left</span>
+             <ul className="filters">
                 <li>
-                    <a className={filter==="all" ? "selected" : ""} onClick={() => setFilter("all")}  href="#/">All</a>
+                    <NavLink data-testid="all" className={({ isActive }) => (isActive && 'selected') || undefined} to="/">All</NavLink>
                 </li>
                 <li>
-                    <a className={filter==="active" ? "selected" : ""} onClick={() => setFilter("active")} href="#/active">Active</a>
+                    <NavLink data-testid="active" className={({ isActive }) => (isActive && 'selected') || undefined} to="/active">Active</NavLink>
                 </li>
                 <li>
-                    <a className={filter==="completed" ? "selected" : ""} onClick={() => setFilter("completed")} href="#/completed">Completed</a>
+                    <NavLink data-testid="completed" className={({ isActive }) => (isActive && 'selected') || undefined} to="/completed">Completed</NavLink>
                 </li>
             </ul>
+            {nbrOfTodosCompleted > 0 && (
+            <> 
             <button className="clear-completed" onClick={() => removeCompletedTodos()}>Clear completed</button>
+            </>
+            )}
         </footer>
     )
 }

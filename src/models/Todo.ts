@@ -1,5 +1,5 @@
 export default interface Todo{
-    id: number
-    content: string,
+    id: string
+    title: string,
     completed: boolean
 }

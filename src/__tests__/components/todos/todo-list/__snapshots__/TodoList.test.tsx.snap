@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList component should match snapshot 1`] = `
+<DocumentFragment>
+  <ul
+    class="todo-list"
+  >
+    <li
+      class=""
+    >
+      <div>
+        <div
+          class="view"
+        >
+          <input
+            aria-label="changeStatus"
+            class="toggle"
+            type="checkbox"
+          />
+          <label
+            aria-label="title"
+          >
+            Wake up early
+          </label>
+          <button
+            aria-label="delete"
+            class="destroy"
+          />
+        </div>
+        <input
+          class="edit"
+          value="Wake up early"
+        />
+      </div>
+    </li>
+    <li
+      class=""
+    >
+      <div>
+        <div
+          class="view"
+        >
+          <input
+            aria-label="changeStatus"
+            class="toggle"
+            type="checkbox"
+          />
+          <label
+            aria-label="title"
+          >
+            Sleep early
+          </label>
+          <button
+            aria-label="delete"
+            class="destroy"
+          />
+        </div>
+        <input
+          class="edit"
+          value="Sleep early"
+        />
+      </div>
+    </li>
+    <li
+      class="completed"
+    >
+      <div>
+        <div
+          class="view"
+        >
+          <input
+            aria-label="changeStatus"
+            checked=""
+            class="toggle"
+            type="checkbox"
+          />
+          <label
+            aria-label="title"
+          >
+            Do the chores
+          </label>
+          <button
+            aria-label="delete"
+            class="destroy"
+          />
+        </div>
+        <input
+          class="edit"
+          value="Do the chores"
+        />
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;

@@ -1,21 +1,22 @@
-import React, {useState} from 'react'
+import { useState } from 'react'
 
 type TodoInputCreatorProps = {
     addTodo: (content:string) => void
 }
 
 export default function TodoInputCreator({addTodo}: TodoInputCreatorProps){
-    const [todoContent, setTodoContent] = useState<string>('');
-    
 
+    const [todoContent, setTodoContent] = useState("")
+    
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>){
         setTodoContent(e.target.value)
     }
 
     function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>){
-        if(e.key === 'Enter' && todoContent.trim() !== ""){
-            addTodo(todoContent.trim());
+        const normalizedInput = todoContent.trim();
+        if(e.key === 'Enter' && normalizedInput !== ""){
+            addTodo(normalizedInput);
             setTodoContent("")
           }
     }

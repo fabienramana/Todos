@@ -2,22 +2,25 @@ import React, { useEffect, useRef, useState } from "react";
 import Todo from "../../../models/Todo"
 
 type TodoItemProps = {
-    todo: Todo,
-    removeTodo: (todo: Todo) => void,
-    changeStatusOfTodo: (todoStatus: boolean, index: number) => void,
-    changeContentOfTodo: (todoContent: string, index: number) => void,
-    editModeIndex: number,
-    setEditMode: (index: number) => void 
+    todoTitle: string,
+    todoStatus: boolean,
+    removeTodo: () => void,
+    changeTodo:(todo: Partial<Todo>) => void
+    setEditMode: () => void,
+    resetEditMode: () => void
 }
 
-export default function TodoItem({ todo, removeTodo, changeStatusOfTodo, changeContentOfTodo , editModeIndex, setEditMode  }: TodoItemProps){
+export default function TodoItem({ todoTitle, todoStatus, removeTodo, changeTodo, setEditMode, resetEditMode  }: TodoItemProps){
 
     const inputModifierRef = useRef<HTMLInputElement>(null);
-    const [modifiedTodoContent, setModifiedTodoContent] = useState<string>(todo.content)
+    const [modifiedTodoContent, setModifiedTodoContent] = useState<string>(todoTitle)
 
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        changeStatusOfTodo(event.target.checked, todo.id);     
+        const todoStatus = {
+            completed: event.target.checked
+        }
+        changeTodo(todoStatus);     
     };
 
     const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,41 +28,43 @@ export default function TodoItem({ todo, removeTodo, changeStatusOfTodo, changeC
     };
     
     const handleClick = (event: React.MouseEvent<HTMLLabelElement>) => {
-        if(event.detail === 2){
-            setEditMode(todo.id)
-        }
+        setEditMode()
     }
 
     function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>){
-        
-         if(e.key === 'Enter' && modifiedTodoContent.trim() !== ""){
-            changeContentOfTodo(modifiedTodoContent.trim(), todo.id)
-            setEditMode(0)
+        const normalizedInput = modifiedTodoContent.trim();
+
+         if(e.key === 'Enter' && normalizedInput !== ""){
+            const todoTitleToChange = {title: normalizedInput}
+            changeTodo(todoTitleToChange)
+            resetEditMode()
          }
-        else if (e.key === 'Enter' && modifiedTodoContent.trim() === ""){
-            removeTodo(todo);
-            setEditMode(0)
+        
+         if (e.key === 'Enter' && normalizedInput === ""){
+            removeTodo();
+            resetEditMode()
          }
 
-        else if (e.key === 'Escape'){
-            setEditMode(0)
+         if (e.key === 'Escape'){
+            setModifiedTodoContent(todoTitle)
+            resetEditMode()
          }
     }
     
       useEffect(() => {
-        if(editModeIndex === todo.id && inputModifierRef.current){
+        if(inputModifierRef.current){
             inputModifierRef.current.focus();
         }
-    }, [editModeIndex, todo.id])  
+    })  
 
 
     return(
         
         <div>
             <div className="view">
-                <input className="toggle" aria-label="changeStatus" type="checkbox" onChange={handleCheckboxChange} checked={todo.completed}/>
-                <label onClick={handleClick}>{todo.content}</label>
-                <button className="destroy" aria-label="delete" onClick={() => removeTodo(todo)}></button>
+                <input className="toggle" aria-label="changeStatus" type="checkbox" onChange={handleCheckboxChange} checked={todoStatus}/>
+                <label aria-label="title" onDoubleClick={handleClick}>{todoTitle}</label>
+                <button className="destroy" aria-label="delete" onClick={() => removeTodo()}></button>
             </div>
             <input ref={inputModifierRef} className="edit"
                    onChange={handleChangeValue}
