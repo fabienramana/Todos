@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.3",
+    "axios": "^1.2.2",
     "classnames": "^2.3.2",
     "postcss-preset-env": "^7.8.3",
     "postcss-pseudo-class-any-link": "^7.1.6",

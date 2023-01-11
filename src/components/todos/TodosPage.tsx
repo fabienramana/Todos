@@ -3,6 +3,8 @@ import TodoInputCreator from "./todo-creator/TodoInputCreator";
 import TodoList from "./todo-list/TodoList";
 import useTodosHook from "../../hooks/todos/useTodosHook"
 import MarkAllTodos from "./todo-list/MarkAllTodos";
+import { useEffect } from "react";
+import axios from "axios";
 
 type TodosPageProps = {
     displayFilter: string
@@ -17,8 +19,17 @@ export default function TodosPage({displayFilter}: TodosPageProps){
         changeTodo,
         removeCompletedTodos,
         changeStatusOfAllTodos,
-        setTodosArrayByFilter 
+        setTodosArrayByFilter,
+        setTodos 
     } = useTodosHook(displayFilter)
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/todos`)
+        .then(res => {
+            console.log(res.data)
+            setTodos(res.data)
+        });
+    }, [])
 
     
     return (

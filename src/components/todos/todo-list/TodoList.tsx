@@ -5,15 +5,15 @@ import { useState } from "react";
 
 type TodoListProps = {
     todos: Todo[],
-    removeTodo: (id: number) => void,
-    changeTodo: (todo: Partial<Todo>, id: number) => void
+    removeTodo: (id: string) => void,
+    changeTodo: (todo: Partial<Todo>, id: string) => void
 }
 
 export default function TodoList({ todos, removeTodo, changeTodo }: TodoListProps){
-    const [editModeIndex, setEditMode] = useState<number>(0);
+    const [editModeIndex, setEditMode] = useState<string>();
 
     const resetEditMode = () => {
-        setEditMode(0)
+        setEditMode("")
     }
 
     return(		

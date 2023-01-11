@@ -1,78 +1,84 @@
+import axios from 'axios'
 import {useState} from 'react'
 import Todo from '../../models/Todo'
 
 export default function useInitTodos(parentFilter: string){
-    const listOfTodos: Array<Todo> = [
+
+    const domain = "http://localhost:4000"
+
+     const listOfTodos: Array<Todo> = [
         {
-            id:1,
+            id:'aaa',
             title:"Wake up early",
             completed: false
         },
         {
-            id:2,
+            id:'bbb',
             title:"Sleep early",
             completed: false
         },
         {
-            id:3,
+            id:'ccc',
             title:"Do the chores",
             completed: true
         }
-    ]
+    ] 
 
     const [todos, setTodos] = useState<Todo[]>(listOfTodos)
 
     const addTodo = (title: string): void => {
-        let todo: Todo
-        if(todos.length>0){
-            const lastElemId = todos[todos.length -1].id
-            todo = {
-                id: lastElemId+1,
-                title,
-                completed: false
-            }
-        }
-        else{
-            todo = {
-                id: 1,
-                title,
-                completed: false
-            }
-        }
-        setTodos([...todos, todo]);
+        axios.post(`${domain}/todos`, {title})
+        .then(res => {
+            console.log(res.data)
+            return axios.get(`${domain}/todos`)
+        }).then(res => {
+            console.log(res.data)
+            setTodos(res.data)
+        });
     }
 
-    const removeTodo = (id:number) => {
-        setTodos(todos.filter((t) => t.id !== id));
+    const removeTodo = (id:string) => {
+        axios.delete(`${domain}/todos/${id}`)
+        .then(() => {
+            return axios.get(`${domain}/todos`)
+        }).then(res => {
+            console.log(res.data)
+            setTodos(res.data)
+        });
     }
 
 
-    const changeTodo = (todo: Partial<Todo>, id: number) => {
-        const shallowCopy = todos.slice()
-        
-        shallowCopy.forEach(t => {
-            if(t.id === id){
-                if("title" in todo){
-                    t.title = todo.title || ""
-                }
-                if("completed" in todo){
-                    t.completed = todo.completed || false
-                }
-            }
-        })
-
-        setTodos(shallowCopy)
+    const changeTodo = (todo: Partial<Todo>, id: string) => {
+        axios.patch(`${domain}/todos/${id}`, todo)
+        .then(() => {
+            return axios.get(`${domain}/todos`)
+        }).then(res => {
+            console.log(res.data)
+            setTodos(res.data)
+        });
     }
 
     const removeCompletedTodos = () => {
-        setTodos(todos.filter((todo) => todo.completed === false))
+        axios.delete(`${domain}/todos?completed=true`)
+        .then(() => {
+            return axios.get(`${domain}/todos`)
+        }).then(res => {
+            console.log(res.data)
+            setTodos(res.data)
+        });
     }
 
     const changeStatusOfAllTodos = (status: boolean) =>{
-        setTodos(todos.map((todo)=> {
-            todo.completed = status
-            return todo;
-        }))
+        todos.forEach(async (todo) => {
+            axios.patch(`${domain}/todos/${todo.id}`, {completed: status})
+            .then(() => {
+                return axios.get(`${domain}/todos`)
+            })
+            .then(res => {
+                console.log(res.data)
+                setTodos(res.data)
+            })
+        })
     }
 
     const setTodosArrayByFilter = (): Todo[] => {
@@ -96,5 +102,6 @@ export default function useInitTodos(parentFilter: string){
              changeTodo,
              removeCompletedTodos,
              changeStatusOfAllTodos,
-             setTodosArrayByFilter };
+             setTodosArrayByFilter,
+             setTodos };
 }

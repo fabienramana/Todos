@@ -8,17 +8,17 @@ describe('TodoList component', () => {
 
     const listOfTodos: Array<Todo> = [
       {
-          id:1,
+          id:"1",
           title:"Wake up early",
           completed: false
       },
       {
-          id:2,
+          id:"2",
           title:"Sleep early",
           completed: false
       },
       {
-          id:3,
+          id:"3",
           title:"Do the chores",
           completed: true
       } 
